@@ -274,7 +274,6 @@ GameObject:
   - component: {fileID: 1150714054}
   - component: {fileID: 1150714053}
   - component: {fileID: 1150714052}
-  - component: {fileID: 1150714051}
   - component: {fileID: 1150714050}
   m_Layer: 0
   m_Name: Cube
@@ -296,19 +295,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1150714051
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1150714049}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0e69d095f545814abf85986089eaf64, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 1814925648}
 --- !u!23 &1150714052
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -473,7 +459,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68c9e263d8644174a9e343d6d383a9cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 1150714054}
   maxWaypoints: 10
+  angularVelocity: 10
 --- !u!114 &1814925654
 MonoBehaviour:
   m_ObjectHideFlags: 0

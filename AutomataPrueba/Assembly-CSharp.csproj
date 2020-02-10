@@ -63,8 +63,6 @@
     <Compile Include="Assets\AI\AI_Agent.cs" />
     <Compile Include="Assets\AI\AI_controller.cs" />
     <Compile Include="Assets\AI\patrol.cs" />
-    <Compile Include="Assets\AI\throwSimulation.cs" />
-    <Compile Include="Assets\prueba.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/Administrator.S2-00/Desktop/AutomataPrueba/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
