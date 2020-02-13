@@ -7,10 +7,11 @@ using UnityEngine;
 public class patrol : AI_Agent
 {
     [SerializeField]
-    Transform target; 
+    Transform target;
     Vector3[] waypoints;
     public int maxWaypoints = 10;
     public float angularVelocity = 0.5f;
+
     int actualWaypoint = 0;
     float halfAngle = 30.0f;
     float coneDistance = 5.0f;
@@ -23,8 +24,8 @@ public class patrol : AI_Agent
         float anglePartition = 360.0f / (float)maxWaypoints;
         for (int i = 0; i < maxWaypoints; ++i)
         {
-            Vector3 v = transform.position + 5 *  Vector3.forward * Mathf.Cos(i* anglePartition) 
-                + 5* Vector3.right * Mathf.Sin(i*anglePartition);
+            Vector3 v = transform.position + 5 * Vector3.forward * Mathf.Cos(i * anglePartition)
+                + 5 * Vector3.right * Mathf.Sin(i * anglePartition);
             waypointsList.Add(v);
 
         }
@@ -33,18 +34,15 @@ public class patrol : AI_Agent
 
     private void OnDrawGizmos()
     {
-        if(UnityEditor.EditorApplication.isPlaying)
+        if (UnityEditor.EditorApplication.isPlaying)
         {
             for (int i = 0; i < maxWaypoints; i++)
             {
                 Gizmos.DrawSphere(waypoints[i], 1.0f);
             }
-
-            
-            
         }
-       
-        
+
+
         Vector3 rightSide = Quaternion.Euler(Vector3.up * halfAngle) * transform.forward * coneDistance;
         Vector3 leftSide = Quaternion.Euler(Vector3.up * -halfAngle) * transform.forward * coneDistance;
 
@@ -67,10 +65,10 @@ public class patrol : AI_Agent
 
     void idle()
     {
-        
-        if(Input.GetKeyDown(KeyCode.A))
+
+        if (Input.GetKeyDown(KeyCode.A))
         {
-            setState(getState("goto")) ;
+            setState(getState("goto"));
         }
     }
 
@@ -90,24 +88,24 @@ public class patrol : AI_Agent
 
         transform.position += transform.forward * Time.deltaTime;
     }
-    
+
     void goToWaypoint()
     {
 
-  
+
         goTo(waypoints[actualWaypoint]);
 
-        if (Vector3.Distance(transform.position,waypoints[actualWaypoint]) <= 1.0f)
+        if (Vector3.Distance(transform.position, waypoints[actualWaypoint]) <= 1.0f)
         {
             setState(getState("nextwp"));
         }
-        else if(checkInCone(target.position))
+        else if (checkInCone(target.position))
         {
             coneDistance *= 2;
             halfAngle *= 2;
             setState(getState("player"));
         }
-        
+
     }
 
     void calculateNextWaypoint()
@@ -136,17 +134,76 @@ public class patrol : AI_Agent
             halfAngle /= 2;
             setState(getState("goto"));
         }
-        else if(Vector3.Distance(transform.position,target.position) <= 0.5f)
+        else if (Vector3.Distance(transform.position, target.position) <= 4f)
         {
             gizmoColor = Color.red;
             setState(getState("idlewar"));
         }
     }
-    
+
+
+    float angleToGo;
+    float totalAngle;
+    float countAngle = 0;
 
     void idleWar()
-    { 
-        
+    {
+        setState(getState("chooseOrbit"));
+    }
+    float angleCount = 0;
+    void chooseOrbit()
+    {
+        angleToGo = Random.Range(0, 361);
+        angleCount = 0;
+        totalAngle = transform.rotation.eulerAngles.y + angleToGo;
+        /*
+         * Decido la rotación
+         * 
+         */
+        setState(getState("OrbitRight"));
+
+    }
+
+    void OrbitRight()
+    {
+        float dist = Vector3.Distance(target.position, transform.position);
+        transform.position += dist
+            * transform.forward;
+
+        float mag = Mathf.Min(angleToGo, angularVelocity); 
+        angleCount += Mathf.Min(angleToGo, angularVelocity);
+
+        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x,
+            transform.rotation.eulerAngles.y + mag,
+            transform.rotation.eulerAngles.z);
+
+        transform.position += dist
+            * -transform.forward;
+
+   
+        if (angleCount >= totalAngle)
+        {
+            setState(getState("idle")) ;
+        }
+    } 
+
+
+    void OrbitLeft()
+    {
+        transform.position += Vector3.Distance(target.position, transform.position) 
+            * transform.forward;
+        countAngle += Mathf.Min(angleToGo, angularVelocity);
+        transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x,
+            transform.rotation.eulerAngles.y - Mathf.Min(angleToGo, angularVelocity),
+            transform.rotation.eulerAngles.z);
+        transform.position += Vector3.Distance(target.position, transform.position)
+            * -transform.forward;
+
+
+        if (countAngle <= totalAngle)
+        {
+
+        }
     }
     // Start is called before the first frame update
     void Start()
@@ -159,7 +216,9 @@ public class patrol : AI_Agent
         initState("nextwp", calculateNextWaypoint);
         initState("player", goToPlayer);
         initState("idlewar", idleWar);
-        
+        initState("chooseOrbit", chooseOrbit);
+        initState("OrbitRight", OrbitRight);
+
         setState(getState("idle"));
     }
 

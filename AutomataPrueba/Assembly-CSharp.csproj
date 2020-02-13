@@ -62,6 +62,11 @@
   <ItemGroup>
     <Compile Include="Assets\AI\AI_Agent.cs" />
     <Compile Include="Assets\AI\AI_controller.cs" />
+    <Compile Include="Assets\AI\DispatchableComponent.cs" />
+    <Compile Include="Assets\AI\life.cs" />
+    <Compile Include="Assets\AI\Message\Entity.cs" />
+    <Compile Include="Assets\AI\Message\MessageA.cs" />
+    <Compile Include="Assets\AI\Message\MessageManager.cs" />
     <Compile Include="Assets\AI\patrol.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/Administrator.S2-00/Desktop/AutomataPrueba/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
