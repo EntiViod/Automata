@@ -5,15 +5,29 @@ using UnityEngine.Assertions;
 
 public class AI_Agent : MonoBehaviour
 {
+
+    
     private stateFunction actualState;
     public delegate void stateFunction();
     public delegate bool conditionFunction();
+    
 
     private Dictionary<string, stateFunction> states;
+    private Dictionary<string, conditionFunction> conditions;
+
+    struct State
+    {
+        public stateFunction execFunction;
+        public string entryFunction;
+        public conditionFunction exitFunction;
+    }
 
     float angleVelocity = 15.0f;
     float velocity = 1.0f;
-    
+    public void idleF()
+    {
+
+    }
     private void Awake()
     {
         
@@ -22,6 +36,17 @@ public class AI_Agent : MonoBehaviour
     public virtual void updateAgent()
     {
         actualState();
+      
+
+        
+    }
+
+   
+
+    bool calculateDistance()
+    {
+      
+        return true;
     }
 
     protected stateFunction getState(string stateName)

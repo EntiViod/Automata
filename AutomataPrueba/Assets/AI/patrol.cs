@@ -212,6 +212,7 @@ public class patrol : AI_Agent
         initPositions();
         actualWaypoint = 0;
         initState("idle", idle);
+        //CreateLink("idle", "goto", distanceToPlayer);
         initState("goto", goToWaypoint);
         initState("nextwp", calculateNextWaypoint);
         initState("player", goToPlayer);
