@@ -11,6 +11,8 @@ public class MessageManager : MonoBehaviour
     DispatchableComponent[] dispatchableComponents;
     Stack<Message> myQ;
     Dictionary<string, System.Type> mssgTypes;
+    
+
     private void Awake()
     {
        
@@ -81,11 +83,19 @@ public class MessageManager : MonoBehaviour
         }
 
     }
-    public void SendMessage(Message m)
+
+    public void RegisterComponentToMessageType(System.Type messageType, Component cmp)
     {
+
+    }
+
+    public void SendMessage(Message m)
+    { 
+        
         if (m.receiver.GetComponent(m.senderComp) == null) return;
         myQ.Push(m);
     }
+
     public void DispatchMessage()
     {
         foreach(Message m in myQ)

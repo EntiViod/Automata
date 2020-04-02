@@ -5,8 +5,6 @@ using UnityEngine;
 public abstract class DispatchableComponent : MonoBehaviour
 {
 
- 
-    public virtual void Dispatch(Message m) {
-        
-    }
+
+    public abstract void Dispatch(Message m);
 }

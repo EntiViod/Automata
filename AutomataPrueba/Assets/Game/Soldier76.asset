@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b39930a4483ec7a45b6ca941a6ad994d, type: 3}
+  m_Name: Soldier76
+  m_EditorClassIdentifier: 
+  reloadingTime: 1.5
+  totalBullets: 25
+  shootingCooldown: 0.25
+  life: 125
+  image: {fileID: 0}
+  projectileType: {fileID: 0}
+  abilities:
+  - {fileID: 6179776751803569913, guid: 97e1a626dd1bc8c43b84a97f32c1bd25, type: 3}
+  - {fileID: 6179776751803569913, guid: 97e1a626dd1bc8c43b84a97f32c1bd25, type: 3}
+  - {fileID: 6179776751803569913, guid: 97e1a626dd1bc8c43b84a97f32c1bd25, type: 3}
